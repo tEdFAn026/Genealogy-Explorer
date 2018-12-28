@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="
-http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-http://www.springframework.org/schema/context
-http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+ http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+ http://www.springframework.org/schema/context
+ http://www.springframework.org/schema/context/spring-context-3.0.xsd
+ http://www.springframework.org/schema/mvc
+ http://www.springframework.org/schema/mvc/spring-mvc.xsd
+ http://www.springframework.org/schema/aop 
+ http://www.springframework.org/schema/aop/spring-aop.xsd
+ http://www.springframework.org/schema/data/jpa 
+ http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd
+ http://www.springframework.org/schema/tx 
+ http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- 导入数据库的配置信息,注意这个标签只能出现一次, 导入一个匹配文件 若想导入多个配置文件可以将 db.properties写成 *.properties -->
+	<context:property-placeholder location="classpath:db.properties" />
+	<context:annotation-config />
+
 
 	<!-- 搜索spring控件 -->
-	<!-- 这里 base-package 地址为 src/main/java 下建立 默认 controller的包名 -->
-	<context:component-scan base-package="com.spring.mvc.controller"></context:component-scan>
 	<context:component-scan base-package="CO7098.CW3.zf41.controller"></context:component-scan>
+	<context:component-scan base-package="CO7098.CW3.zf41.repository"></context:component-scan>
+	<context:component-scan base-package="CO7098.CW3.zf41.service"></context:component-scan>
+
 	<!-- 视图页面配置 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -22,4 +37,32 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 			<value>.jsp</value>
 		</property>
 	</bean>
+
+
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="zf41" />
+		<property name="persistenceXmlLocation" value="classpath:/persistence.xml" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="true" />
+				<property name="database" value="MYSQL" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 自动扫描并注入Spring Data JPA -->
+	<jpa:repositories base-package="CO7098.CW3.zf41.repository"
+		entity-manager-factory-ref="entityManagerFactory"
+		transaction-manager-ref="transactionManager">
+	</jpa:repositories>
+
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager"
+		proxy-target-class="false" />
 </beans>
