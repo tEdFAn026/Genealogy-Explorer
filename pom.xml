@@ -19,10 +19,15 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<spring.version>5.0.8.RELEASE</spring.version>
 		<jackson.version>2.9.5</jackson.version>
+		<log4j.version>1.2.17</log4j.version>
+        <slf4j.version>1.7.25</slf4j.version>
 	</properties>
 
-	<!-- <parent> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-parent</artifactId> 
-		<version>2.1.1.RELEASE</version> </parent> -->
+<!-- 	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.1.RELEASE</version>
+	</parent> -->
 
 	<dependencies>
 		<dependency>
@@ -72,9 +77,9 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot</artifactId>
 			<version>2.1.1.RELEASE</version>
-		</dependency>
-
-		<dependency>
+		</dependency> -->
+		
+<!-- 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 			<version>2.1.1.RELEASE</version>
@@ -86,6 +91,12 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 			<version>2.1.1.RELEASE</version>
 		</dependency> -->
+		
+		<dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.3.7.Final</version>
+        </dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
 		<dependency>
@@ -115,6 +126,43 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
+		
+		
+        <!-- 导入dbcp的jar包，用来在applicationContext.xml中配置数据库 -->
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+        
+        <!-- 日志文件管理包 -->
+        <!-- log start -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        
+ 
+        <!-- 格式化对象，方便输出日志 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.1.41</version>
+        </dependency>
+ 
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+ 
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <!-- log end -->
 
 		<!-- https://mvnrepository.com/artifact/org.eclipse.persistence/javax.persistence -->
 <!-- 		<dependency>
@@ -142,7 +190,11 @@
 			<version>${jackson.version}</version>
 		</dependency>
 
-
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		    <version>3.5</version>
+		</dependency>
 
 	</dependencies>
 

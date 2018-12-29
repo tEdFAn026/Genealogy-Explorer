@@ -21,26 +21,24 @@ s">
 	<table class="table table-bordered">
 		<tr>
 			<th>id</th>
-			<th>First name</th>
-			<th>Last name</th>
-
+			<th>name</th>
+			<th></th>
 		</tr>
 		<tbody>
 			<c:forEach items="${persons}" var="person" varStatus="itr">
 				<tr>
 					<td>${person.key}</td>
 					<td>${person.name}</td>
-					<td>${person.gender}</td>
-					<td><a href="/edit/${person.key}" class="btn btn-info">Edit</a>
-						<a href="/delete/${person.key}" class="btn btn-danger">Delete</a>
+					<td><%-- <a href="/edit/${person.key}" class="btn btn-info">Edit</a> --%>
+						<a href="./delete/${person.key}" class="btn btn-danger">Delete</a>
 					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 
 	</table>
-	<a href="/account/create" class="btn btn-primary">Add new account</a>
-
+	<a href="./create" class="btn btn-primary">Add new person</a>
+	<a href="/GE/" class="btn btn-primary">Back to GE tree</a>
 
 
 </body>
