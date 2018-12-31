@@ -53,7 +53,8 @@ $(function() {
 						$("#addForm").find('.alert')
 								.find("#alertTitle")
 								.html("Success!");
-
+						
+						$("#modalAdd").addClass("d-none");
 						var g = "N/A";
 						if (d.hasOwnProperty("gender")) {
 							g = d.gender;
@@ -65,7 +66,9 @@ $(function() {
 							+ d.key
 							+ "\"><td>"
 							+ d.key
-							+ "</td><td>q</td><td>"
+							+ "</td><td>"
+							+ d.name
+							+"</td><td>"
 							+ g
 							+ "</td><td><a href=\"./detail/"
 							+ d.key
@@ -99,11 +102,17 @@ $(function() {
 
 	$(".modalAddClose").click(function() {
 		setTimeout(function() {
+			var allinput = $(':input', '#addForm').not(':button,:submit,:reset');// 将myform表单中input元素type为button、submit、reset排除
+			verifyCheck._clearTips();
 			$("#addForm").find('.form-group').removeClass("d-none");
-			$("#addForm").find('.alert').addClass("d-none");
-			$(':input', '#addForm').not(':button,:submit,:reset') // 将myform表单中input元素type为button、submit、reset排除
-			.val('') //将input元素的value设为空值
+			$("#addForm").find('.alert').addClass("d-none");	
+			allinput.val('') //将input元素的value设为空值
 			.removeAttr('checked'); // 如果任何radio/checkbox/select inputs有checked or selected 属性，将其移除
+			$.each(allinput, function() {
+				var currTr = $(this);
+				verifyCheck._clearTips(currTr);
+			});
+			$("#modalAdd").removeClass("d-none");
 		}, 200);
 	});
 
@@ -122,12 +131,18 @@ function getInsertID(id) {
 	$.each(trs, function() {
 		var currTr = $(this);
 		currTrID = currTr.attr("id").replace("person_", "");
-		if (parseInt(currTrID) > parseInt(id)){
+		console.log("currTrID", currTrID);
+		if (parseInt(currTrID) > parseInt(id)) {
+			console.log(currTrID, id);
 			return false;
 		}
 	});
-	
-	return currTrID;
+
+	if (parseInt(currTrID) > parseInt(id))
+		return currTrID;
+	else
+		return id;
+
 }
 
 function reloadTable(){

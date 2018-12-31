@@ -16,11 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import CO7098.CW3.zf41.domain.Person;
-import CO7098.CW3.zf41.domain.PersonModel;
 import CO7098.CW3.zf41.domain.PersonSecviceMessage;
 import CO7098.CW3.zf41.domain.PersonTree;
 import CO7098.CW3.zf41.exception.PersonSecviceException;
-
+import CO7098.CW3.zf41.page.util.pageMsg;
 import CO7098.CW3.zf41.service.PersonService;
 
 @Controller
@@ -30,10 +29,11 @@ public class PersonController {
 
 	@Controller
 	public class DisplayGE {
-
 		@RequestMapping(value = "/", method = RequestMethod.GET)
 		public ModelAndView ShowGETree() {
-			return new ModelAndView("index", "persons", ps.findAllPerson());
+			ModelAndView mv = new ModelAndView("mainPage");
+			mv.addObject("page", new pageMsg("/", "index", "GE Tree"));
+			return mv;
 		}
 	}
 
@@ -43,57 +43,59 @@ public class PersonController {
 
 		@RequestMapping(value = "/All", method = RequestMethod.GET)
 		public ModelAndView ShowAllPersonInTable() {
-			ModelAndView mv = new ModelAndView("listAll");
+			ModelAndView mv = new ModelAndView("mainPage");
+			mv.addObject("page", new pageMsg("/person/All", "listAll", "GE - All Person List"));
 			mv.addObject("persons", ps.findAllPerson());
-			mv.addObject("contextpath", "/person/All");
-			
+
 			return mv;
 		}
 
 		@RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
 		public ModelAndView ShowPersonDetail(@PathVariable Integer id) {
-			ModelAndView mv = new ModelAndView("person");
-			mv.addObject("contextpath", "/person/detail/" + id);
-			Person p;
+			ModelAndView mv = new ModelAndView("mainPage");
+			Person p = null;
+			String Title;
 			try {
 				p = ps.findById(id);
 				mv.addObject("person", p);
 				mv.addObject("finded", true);
-
+				Title = "GE - " + p.getName();
 			} catch (PersonSecviceException e) {
 				// TODO: handle exception
 				System.out.println(e);
 				mv.addObject("finded", false);
+				Title = "People not find";
 				mv.addObject("msg", e.getPServiceErrorCode().getDesc());
-				return mv;
 			}
+			
+			if (p != null) {
+				boolean findFather = false;
+				boolean findMother = false;
 
-			boolean findFather = false;
-			boolean findMother = false;
-
-			try {
-				Person f = ps.findById(p.getFatherKey());
-				if (f != null) {
-					mv.addObject("father", f.getName());
-					findFather = true;
+				try {
+					Person f = ps.findById(p.getFatherKey());
+					if (f != null) {
+						mv.addObject("father", f.getName());
+						findFather = true;
+					}
+				} catch (PersonSecviceException e) {
+					// TODO: handle exception
 				}
-			} catch (PersonSecviceException e) {
-				// TODO: handle exception
-			}
 
-			try {
-				Person m = ps.findById(p.getMotherKey());
-				if (m != null) {
-					mv.addObject("mother", m.getName());
-					findMother = true;
+				try {
+					Person m = ps.findById(p.getMotherKey());
+					if (m != null) {
+						mv.addObject("mother", m.getName());
+						findMother = true;
+					}
+				} catch (PersonSecviceException e) {
+					// TODO: handle exception
 				}
-			} catch (PersonSecviceException e) {
-				// TODO: handle exception
+
+				mv.addObject("findFather", findFather);
+				mv.addObject("findMother", findMother);
 			}
-
-			mv.addObject("findFather", findFather);
-			mv.addObject("findMother", findMother);
-
+			mv.addObject("page", new pageMsg("/person/detail/" + id, "person", Title));
 			return mv;
 		}
 
@@ -133,7 +135,7 @@ public class PersonController {
 				@RequestParam(value = "f", required = false) Integer fatherKey,
 				@RequestParam(value = "dob", required = false) String dateOfBirth,
 				@RequestParam(value = "g", required = false) String gender) {
-			
+
 			Date birthDay = Date.valueOf(dateOfBirth);
 			try {
 				ps.save(new Person(key, name, motherKey, fatherKey, birthDay, gender), true);
@@ -150,9 +152,8 @@ public class PersonController {
 		 * (2) POST /GE/person/addJSON
 		 * 
 		 * @param obj
-		 * 				input person or person list json
-		 * @return
-		 * 				return PersonSecviceMessage
+		 *            input person or person list json
+		 * @return return PersonSecviceMessage
 		 */
 		@RequestMapping(value = "/addJSON", method = RequestMethod.POST)
 		public @ResponseBody Object addJson(@RequestBody Object obj) {
@@ -162,7 +163,7 @@ public class PersonController {
 				objMap = (Map) obj;
 				if (objMap.containsKey("list")) {
 					ArrayList listArray = ((ArrayList) objMap.get("list"));
-					ArrayList<Person> pList= new ArrayList<Person>();
+					ArrayList<Person> pList = new ArrayList<Person>();
 					for (Object pObj : listArray) {
 						Map pObjMap = (Map) pObj;
 						Person p = new Person();
