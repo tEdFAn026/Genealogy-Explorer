@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import java.sql.Date;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -16,10 +18,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Table(name="GE_Person")
 public class Person {
 	
-	public int getKey() {
+	public Integer getKey() {
 		return key;
 	}
-	public void setKey(int key) {
+	public void setKey(Integer key) {
 		this.key = key;
 	}
 	public String getName() {
@@ -45,10 +47,10 @@ public class Person {
 	}
 	
 	@JsonProperty("dob")
-	public Integer getDateOfBirth() {
+	public Date getDateOfBirth() {
 		return this.dateOfBirth;
 	}
-	public void setDateOfBirth(Integer dateOfBirth) {
+	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 	
@@ -64,14 +66,14 @@ public class Person {
 
 	}
 
-	public Person(int key, String name) {
+	public Person(Integer key, String name) {
 		super();
 		this.key = key;
 		this.name = name;
 	}
 
 
-	public Person(int key, String name, Integer motherKey, Integer fatherKey, Integer dateOfBirth, String gender) {
+	public Person(Integer key, String name, Integer motherKey, Integer fatherKey, Date dateOfBirth, String gender) {
 		super();
 		this.key = key;
 		this.name = name;
@@ -85,7 +87,7 @@ public class Person {
 	@Id
 //	@GeneratedValue
 	@Column(name = "[key]")
-	int key;
+	Integer key;
 	@Column(name = "name")
 	String name;
 	
@@ -94,7 +96,7 @@ public class Person {
 	@Column(name = "fatherKey")
 	Integer fatherKey;
 	@Column(name = "DateOfBirth")
-	Integer dateOfBirth; //19921210->December 10th 1992 
+	Date dateOfBirth; //19921210->December 10th 1992 
 	@Column(name = "gender")
 	String gender;
 	

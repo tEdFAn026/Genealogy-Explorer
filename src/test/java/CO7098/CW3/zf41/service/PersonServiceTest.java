@@ -2,7 +2,7 @@
  * https://blog.csdn.net/gaodml/article/details/68961156 
  */
 
-package CO7098.CW3.zf41.repository.service;
+package CO7098.CW3.zf41.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,15 +19,15 @@ import CO7098.CW3.zf41.service.PersonService;
 
 @Controller
 public class PersonServiceTest {
-//	@Autowired
+	@Autowired
 	PersonService ps;
 	
-	public static void main(String[] args) {
-        System.out.println("---start---");
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("springContext.xml");
-        PersonService ps = (PersonService) applicationContext.getBean("ps");
-		ps.save(new Person(100, "test"));
-    }
+//	public static void main(String[] args) {
+//        System.out.println("---start---");
+//        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("springContext.xml");
+//        PersonService ps = (PersonService) applicationContext.getBean("ps");
+//		ps.save(new Person(100, "test"), true);
+//    }
 
 
 	@Before
@@ -60,6 +60,6 @@ public class PersonServiceTest {
 
 //	@Test
 	public void save() {
-		ps.save(new Person(100, "test"));
+		ps.save(new Person(100, "test"),true);
 	}
 }

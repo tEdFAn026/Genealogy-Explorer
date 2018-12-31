@@ -3,6 +3,7 @@ package CO7098.CW3.zf41.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import CO7098.CW3.zf41.exception.PersonSecviceException;
@@ -14,6 +15,9 @@ public class PersonTree {
 	private int key;
 	private Parents parents;
 	private List<PersonTree> children;
+	
+	@JsonIgnore
+	int generation;
 
 	public PersonTree() {
 		super();
@@ -24,7 +28,7 @@ public class PersonTree {
 		this.key = key;
 	}
 
-	public PersonTree(Person p, PersonService ps, boolean findAncestors) {
+	public PersonTree(Person p, PersonService ps, boolean findAncestors, int generation) {
 		super();
 		if (p == null)
 			return;
@@ -34,10 +38,13 @@ public class PersonTree {
 		if (ps == null)
 			return;
 
+		if(generation ==1 )
+			return;
+		
 		if (findAncestors) {
 			try {
 
-				PersonTree m = new PersonTree(ps.findById(p.getMotherKey()), ps, findAncestors);
+				PersonTree m = new PersonTree(ps.findById(p.getMotherKey()), ps, findAncestors, generation-1);
 				if (parents == null)
 					this.parents = new Parents(m, null);
 				else
@@ -49,7 +56,7 @@ public class PersonTree {
 			}
 
 			try {
-				PersonTree f = new PersonTree(ps.findById(p.getFatherKey()), ps, findAncestors);
+				PersonTree f = new PersonTree(ps.findById(p.getFatherKey()), ps, findAncestors, generation-1);
 				if (parents == null)
 					this.parents = new Parents(null, f);
 				else
@@ -67,7 +74,7 @@ public class PersonTree {
 
 				if ((pChildren.getFatherKey() != null && pChildren.getFatherKey() == this.key)
 						|| (pChildren.getMotherKey() != null && pChildren.getMotherKey() == this.key))
-					this.children.add(new PersonTree(pChildren, ps, findAncestors));
+					this.children.add(new PersonTree(pChildren, ps, findAncestors, generation-1));
 			}
 
 			if (this.children.isEmpty())
