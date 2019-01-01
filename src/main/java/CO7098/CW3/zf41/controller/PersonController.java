@@ -285,5 +285,9 @@ public class PersonController {
 			}
 		}
 
+		@RequestMapping(value = "/getAll", method = RequestMethod.POST)
+		public @ResponseBody Object getAll(){
+			return (ps.findAllPerson());
+		}
 	}
 }

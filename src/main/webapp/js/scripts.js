@@ -7,13 +7,15 @@ $(function() {
 		console.log(id);
 		$.ajax({
 			type : "GET",
-			url : "./delete/" + id,
+			url : "/GE/person/delete/" + id,
 			success : function(data) {
 				console.log(data.result);
 				var success = data.result;
 				if (success) {
 					$("#person_" + id).remove();
 					reloadTable();
+					if($("#sample").length)
+						init();
 				} else
 					alert("delete fail:" + data.message);
 			},
@@ -36,7 +38,7 @@ $(function() {
 				contentType : 'application/json;charset=UTF-8',// 关键是要加上这行
 				traditional : true,// 这使json格式的字符不会被转码
 				data : JSON.stringify(d),
-				url : "./addJSON",
+				url : "/GE/person/addJSON",
 				success : function(data) {
 					console.log(data);
 					if (data.result) {
@@ -103,7 +105,6 @@ $(function() {
 	$(".modalAddClose").click(function() {
 		setTimeout(function() {
 			var allinput = $(':input', '#addForm').not(':button,:submit,:reset');// 将myform表单中input元素type为button、submit、reset排除
-			verifyCheck._clearTips();
 			$("#addForm").find('.form-group').removeClass("d-none");
 			$("#addForm").find('.alert').addClass("d-none");	
 			allinput.val('') //将input元素的value设为空值

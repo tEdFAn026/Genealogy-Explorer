@@ -161,8 +161,8 @@
 <!-- 						<button type="button" class="close" data-dismiss="alert"
 							aria-hidden="true">×</button> -->
 						<h4>Alert!</h4>
-						<strong id="alertTitle">Warning!</strong> <span id="alertMsg">Best
-							check yourself, you're not looking too good.</span>
+						<strong id="alertTitle"></strong>
+						<span id="alertMsg"></span>
 					</div>
 				</form>
 
@@ -185,9 +185,9 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="myModalLabel">Delete person</h5>
-				<button type="button" class="close" data-dismiss="modal">
+<!-- 				<button type="button" class="close" data-dismiss="modal">
 					<span aria-hidden="true">×</span>
-				</button>
+				</button> -->
 			</div>
 			<div class="modal-body">
 				<div class="alert alert-danger alert-dismissable">

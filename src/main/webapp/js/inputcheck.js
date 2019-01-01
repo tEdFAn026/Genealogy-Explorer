@@ -137,7 +137,6 @@
 	};
 
 	verifyCheck._clearTips=function(obj){
-		console.log("_clearTips:",obj);
 		obj.parent().find(".valid").addClass("d-none");
 		obj.removeClass("is-invalid").removeClass("is-valid");
 	};
