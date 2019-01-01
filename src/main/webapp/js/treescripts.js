@@ -23,7 +23,7 @@
 			success : function(data) {
 				if(data.hasOwnProperty("name")){
 					data = setClass(data, 0);
-					$('#chart-container').orgchart({
+					$('#chart-container-ancestors').orgchart({
 					      'data' : data,
 					      'nodeContent': 'gender',
 					      'direction': 'b2t',

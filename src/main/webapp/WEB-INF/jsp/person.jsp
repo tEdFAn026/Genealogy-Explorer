@@ -82,7 +82,7 @@
 					</div>
 					<div class="col-md-4">
 						<h5>Ancestors</h5>
-						<div id="chart-container"></div>
+						<div id="chart-container-ancestors"></div>
 					</div>
 				</div>
 			</div>
