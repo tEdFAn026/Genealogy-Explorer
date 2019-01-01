@@ -16,10 +16,12 @@ public enum PersonServiceErrorCode {
 	
 	private String value;
 	private String desc;
+	private String defaultDesc;
 
 	private PersonServiceErrorCode(String value, String desc) {
 		this.setValue(value);
 		this.setDesc(desc);
+		this.setDefaultDesc(desc);
 	}
 
 	public String getValue() {
@@ -38,13 +40,23 @@ public enum PersonServiceErrorCode {
 		this.desc = desc;
 	}
 
+	public String getDefaultDesc() {
+		return defaultDesc;
+	}
+
+	public void setDefaultDesc(String defaultDesc) {
+		this.defaultDesc = defaultDesc;
+	}
+	
 	@Override
 	public String toString() {
 		return "[" + this.value + "]" + this.desc;
 	}
 	
 	public PersonServiceErrorCode SetID(int id){
-		this.setDesc(String.format(this.getDesc(), id));
+		this.setDesc(String.format(this.getDefaultDesc(), id));
 		return this;
 	}
+
+
 }

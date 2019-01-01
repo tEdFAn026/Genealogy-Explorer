@@ -55,11 +55,15 @@
 	}).on('onDataRequestSuccess', function(e, result) {
 		console.log('onDataRequestSuccess: ', result);
 	}).on('onSetSelectValue', function(e, keyword, data) {
+		$("#search").val("");
+		var re = /^[0-9]+.?[0-9]*$/; //判断字符串是否为数字 //判断正整数 /^[1-9]+[0-9]*]*$/ 
+		if(re.test(data.Id))
+			window.location.href="/GE/person/detail/"+data.Id;
 		console.log('onSetSelectValue: ', keyword, data);
 	}).on('onUnsetSelectValue', function() {
 		console.log("onUnsetSelectValue");
 	}).on('mousedown',function(){
-		console.log("mousedown");
+//		console.log("mousedown");
 	});
 
 }());
