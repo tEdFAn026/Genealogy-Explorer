@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page isELIgnored="false"%>
-<link id="bscss" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<!-- <link id="bscss" href="//cdn.bootcss.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" rel="stylesheet"> -->
 <!-- <link id="bscss" href="/GE/css/3.3.7/bootstrap.min.css" rel="stylesheet"> -->
 <div class="row">
 	<div class="col-md-12">
@@ -49,4 +49,4 @@
 	</div>
 </div>
 <script src="/GE/js/bootstrap-suggest.js"></script>
-<script src="/GE/js/demo.js?ver=20160422"></script>
+<script src="/GE/js/search.js"></script>

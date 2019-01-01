@@ -156,7 +156,8 @@ public class PersonController {
 		 * @return return PersonSecviceMessage
 		 */
 		@RequestMapping(value = "/addJSON", method = RequestMethod.POST)
-		public @ResponseBody Object addJson(@RequestBody Object obj) {
+		public @ResponseBody Object addJson(@RequestBody Object obj,
+				@RequestParam(value = "update", required = false) boolean update) {
 
 			Map objMap = null;
 			try {
@@ -176,7 +177,7 @@ public class PersonController {
 						}
 						pList.add(p);
 					}
-					ps.saveList(pList, true);
+					ps.saveList(pList, !update);
 					return new PersonSecviceMessage(true);
 				} else {
 					Person p = new Person();
@@ -188,7 +189,7 @@ public class PersonController {
 						p.setDateOfBirth(birthDay);
 					}
 					System.out.println(p);
-					ps.save(p, true);
+					ps.save(p, !update);
 					return new PersonSecviceMessage(true);
 				}
 			} catch (PersonSecviceException e) {

@@ -12,6 +12,7 @@
 		getDataMethod : "url", //获取数据的方式，总是从 URL 获取
 		showHeader : true, //显示多个字段的表头
 		autoDropup : true, //自动判断菜单向上展开
+		listAlign: 'auto',
 		pathVariable : true,
 		hideOnSelect : true,
 		searchingTip : 'searching...',

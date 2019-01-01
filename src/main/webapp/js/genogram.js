@@ -302,7 +302,21 @@ function init() {
 					if (data.gender) {
 						g = data.gender;
 					}					
-					var str = "<tr class=\"table-warning\" id=\"person_"+data.key+"\"><td name=\"td0\">"+data.key+"</td><td name=\"td1\">"+data.name+"</td><td name=\"td2\">"+g+"</td><td name=\"td3\"><a href=\"/GE/person/detail/"+data.key+"\" class=\"btn btn-sm btn-info\">Detail</a><a class=\"btn btn-sm btn-danger\" href=\"#deletePerson\" role=\"button\" data-toggle=\"modal\" onclick=\"setDeletePersonID("+data.key+",\'q\')\">Delete</a></td></tr>";				
+					var str = "<tr class=\"table-warning\" id=\"person_"
+							+ data.key
+							+ "\"><td name=\"td0\">"
+							+ data.key
+							+ "</td><td name=\"td1\">"
+							+ data.name
+							+ "</td><td name=\"td2\">"
+							+ g
+							+ "</td><td name=\"td3\"><a href=\"/GE/person/detail/"
+							+ data.key
+							+ "\" class=\"btn btn-sm btn-info\">Detail</a> <a class=\"btn btn-sm btn-warning\" href=\"#addPerson\" role=\"button\" data-toggle=\"modal\" onclick=\"setEditPersonID("
+							+ data.key
+							+ ")\">&nbsp;&nbsp;Edit&nbsp;&nbsp;</a> <a class=\"btn btn-sm btn-danger\" href=\"#deletePerson\" role=\"button\" data-toggle=\"modal\" onclick=\"setDeletePersonID("
+							+ data.key
+							+ ",\'q\')\">Delete</a></td></tr>";				
 					listpeopleDiv.innerHTML = str;
 					listpeopleDiv.parentNode.classList.remove("d-none");
 				}
