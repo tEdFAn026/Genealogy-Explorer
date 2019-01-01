@@ -13,6 +13,9 @@ import CO7098.CW3.zf41.service.PersonService;
 public class PersonTree {
 
 	private int key;
+	private String gender;
+	private String name;
+
 	private Parents parents;
 	private List<PersonTree> children;
 	
@@ -34,6 +37,10 @@ public class PersonTree {
 			return;
 
 		this.key = p.getKey();
+		this.name = p.getName();
+		
+		if ((this.gender = p.getGender()) == null)
+			this.gender = "N/A";
 
 		if (ps == null)
 			return;
@@ -106,6 +113,23 @@ public class PersonTree {
 	public void setChildren(List<PersonTree> children) {
 		this.children = children;
 	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	public class Parents {
