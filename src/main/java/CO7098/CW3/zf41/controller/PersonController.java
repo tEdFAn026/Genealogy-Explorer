@@ -169,6 +169,10 @@ public class PersonController {
 						Map pObjMap = (Map) pObj;
 						Person p = new Person();
 						BeanUtils.populate(p, pObjMap);
+						if(objMap.containsKey("m"))
+							p.setMotherKey(Integer.valueOf((String)objMap.get("m")));
+						if(objMap.containsKey("f"))
+							p.setMotherKey(Integer.valueOf((String)objMap.get("f")));
 						if (objMap.containsKey("dob")) {
 							String strDate = objMap.get("dob").toString();
 							System.out.println(strDate);
@@ -182,6 +186,10 @@ public class PersonController {
 				} else {
 					Person p = new Person();
 					BeanUtils.populate(p, objMap);
+					if(objMap.containsKey("m"))
+						p.setMotherKey(Integer.valueOf((String)objMap.get("m")));
+					if(objMap.containsKey("f"))
+						p.setFatherKey(Integer.valueOf((String)objMap.get("f")));
 					if (objMap.containsKey("dob")) {
 						String strDate = objMap.get("dob").toString();
 						System.out.println(strDate);

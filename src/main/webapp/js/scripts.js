@@ -26,9 +26,19 @@ $(function() {
 		var d = {};
 		var t = $("#addForm").serializeArray();
 		$.each(t, function() {
+			console.log(this.name,this.value,$.trim(this.value));
 			if ($.trim(this.value))
 				d[this.name] = this.value;
 		});
+		
+		
+		if($("#addForm").find("#male").attr('checked')){
+			d.gender="male";
+		}
+		else if($("#addForm").find("#female").attr('checked')){
+			d.gender="female";
+		}
+		
 		console.log(d);
 		var checkResult = verifyCheck._click();
 		if (checkResult) {	
