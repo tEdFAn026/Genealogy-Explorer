@@ -1,10 +1,10 @@
 package CO7098.CW3.zf41.controller;
 
-import java.sql.Date;
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import CO7098.CW3.zf41.domain.Person;
+import CO7098.CW3.zf41.domain.PersonModel;
 import CO7098.CW3.zf41.domain.PersonSecviceMessage;
 import CO7098.CW3.zf41.domain.PersonTree;
 import CO7098.CW3.zf41.exception.PersonSecviceException;
@@ -136,9 +139,8 @@ public class PersonController {
 				@RequestParam(value = "dob", required = false) String dateOfBirth,
 				@RequestParam(value = "g", required = false) String gender) {
 
-			Date birthDay = Date.valueOf(dateOfBirth);
 			try {
-				ps.save(new Person(key, name, motherKey, fatherKey, birthDay, gender), true);
+				ps.save(new Person(key, name, motherKey, fatherKey, dateOfBirth, gender), true);
 			} catch (PersonSecviceException e) {
 				// TODO: handle exception
 				System.out.println(e);
@@ -160,42 +162,17 @@ public class PersonController {
 				@RequestParam(value = "update", required = false) boolean update) {
 
 			Map objMap = null;
+			ObjectMapper mapper = new ObjectMapper();
+			
 			try {
 				objMap = (Map) obj;
-				if (objMap.containsKey("list")) {
-					ArrayList listArray = ((ArrayList) objMap.get("list"));
-					ArrayList<Person> pList = new ArrayList<Person>();
-					for (Object pObj : listArray) {
-						Map pObjMap = (Map) pObj;
-						Person p = new Person();
-						BeanUtils.populate(p, pObjMap);
-						if(objMap.containsKey("m"))
-							p.setMotherKey(Integer.valueOf((String)objMap.get("m")));
-						if(objMap.containsKey("f"))
-							p.setMotherKey(Integer.valueOf((String)objMap.get("f")));
-						if (objMap.containsKey("dob")) {
-							String strDate = objMap.get("dob").toString();
-							System.out.println(strDate);
-							Date birthDay = Date.valueOf(strDate);
-							p.setDateOfBirth(birthDay);
-						}
-						pList.add(p);
-					}
-					ps.saveList(pList, !update);
+				if (objMap.containsKey("list")) {			
+					PersonModel pList = mapper.convertValue(obj, PersonModel.class);
+					System.out.println(pList);
+					ps.saveList(pList.getList(), !update);
 					return new PersonSecviceMessage(true);
 				} else {
-					Person p = new Person();
-					BeanUtils.populate(p, objMap);
-					if(objMap.containsKey("m"))
-						p.setMotherKey(Integer.valueOf((String)objMap.get("m")));
-					if(objMap.containsKey("f"))
-						p.setFatherKey(Integer.valueOf((String)objMap.get("f")));
-					if (objMap.containsKey("dob")) {
-						String strDate = objMap.get("dob").toString();
-						System.out.println(strDate);
-						Date birthDay = Date.valueOf(strDate);
-						p.setDateOfBirth(birthDay);
-					}
+					Person p = mapper.convertValue(obj, Person.class);
 					System.out.println(p);
 					ps.save(p, !update);
 					return new PersonSecviceMessage(true);
@@ -206,6 +183,7 @@ public class PersonController {
 				return new PersonSecviceMessage(false, e.getPServiceErrorCode().getDesc());
 			} catch (Exception e) {
 				// TODO: handle exception
+				System.out.println(e);
 				return new PersonSecviceMessage(false, "No person or person list passed in");
 			}
 		}
@@ -244,6 +222,7 @@ public class PersonController {
 		@RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
 		public @ResponseBody Object get(@PathVariable Integer id) {
 			try {
+				System.out.println(ps.findById(id));
 				return ps.findById(id);
 			} catch (PersonSecviceException e) {
 				// TODO: handle exception

@@ -26,16 +26,16 @@ $(function() {
 		var d = {};
 		var t = $("#addForm").serializeArray();
 		$.each(t, function() {
-			console.log(this.name,this.value,$.trim(this.value));
+//			console.log(this.name,this.value,$.trim(this.value));
 			if ($.trim(this.value))
 				d[this.name] = this.value;
 		});
 		
-		
-		if($("#addForm").find("#male").attr('checked')){
+//		console.log($("#addForm").find("#female").prop('checked'));
+		if($("#addForm").find("#male").attr('checked') || $("#addForm").find("#male").prop('checked')){
 			d.gender="male";
 		}
-		else if($("#addForm").find("#female").attr('checked')){
+		else if($("#addForm").find("#female").attr('checked') || $("#addForm").find("#female").prop('checked')){
 			d.gender="female";
 		}
 		
@@ -144,6 +144,9 @@ $(function() {
 				verifyCheck._clearTips(currTr);
 			});
 			$("#modalAdd").removeClass("d-none");
+//			console.log($('input:radio[name="gender"]'));
+			$('input:radio[name="gender"]').removeAttr('checked');
+			$('input:radio[name="gender"]').prop('checked',false);
 		}, 200);
 	});
 
@@ -177,13 +180,25 @@ function setEditPersonID(key){
 				$("#addForm").find("#key").val(data.key);
 				$("#addForm").find("#name").val(data.name);
 				$("#addForm").find("#m").val(data.m);
-				$("#addForm").find("#f").val(data.f);
-				var dob = new Date(data.dob);
-				$("#addForm").find("#dob").val(dob.format("yyyy-MM-dd"));
-				if(data.gender=="male")
+				$("#addForm").find("#f").val(data.f);				
+				if(data.dob){
+					var y = data.dob.substring(0,4);
+					var m = data.dob.substring(4,6);
+					var d = data.dob.substring(6,8);
+					var dateStr = y+"-"+m+"-"+d;
+					var dob = new Date(dateStr);
+//					console.log("data.dob",data.dob,"dob",dateStr);
+					$("#addForm").find("#dob").val(dob.format("yyyy-MM-dd"));
+				}
+				if(data.gender=="male"){
 					$("#addForm").find("#male").attr('checked','true');
+					$("#addForm").find("#male").prop('checked',false);
+				}
 				else if(data.gender=="female")
+				{
 					$("#addForm").find("#female").attr('checked','true');
+					$("#addForm").find("#female").prop('checked',false);
+				}
 			}
 			else {
 				$("#modalAdd").addClass("d-none");

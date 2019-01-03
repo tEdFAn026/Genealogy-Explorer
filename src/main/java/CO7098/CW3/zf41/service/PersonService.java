@@ -1,6 +1,6 @@
 package CO7098.CW3.zf41.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,7 +69,7 @@ public class PersonService {
 			pr.save(p);
 	}
 
-	public void saveList(ArrayList<Person> pList, boolean newPerson) {
+	public void saveList(List<Person> pList, boolean newPerson) {
 
 		for (Person p : pList) {
 			if(p.getKey()==null)
