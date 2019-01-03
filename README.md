@@ -19,7 +19,7 @@ you should send your request directly to **hostName:port/GE/person/add?(params)*
 
 ## Part 2: Web Interface
 
-You can the search function in all pages in the search input content in nav bar.
+You can the search person in all pages in the search input content in nav bar. The search include search by key as well as fuzzy search by name
 #### Index Page
  Url  :  hostName:port/GE/
  Draw the GE tree, and show selected person info, and edit and delete the selected person.
