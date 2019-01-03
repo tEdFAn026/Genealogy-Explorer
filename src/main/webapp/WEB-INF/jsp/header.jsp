@@ -31,7 +31,7 @@
 				<form class="form-inline">
 					<div class="input-group">
 						<input type="text" class="form-control  mr-sm-2" id="search"
-							placeholder="input person key(id) to search">
+							placeholder="search key(id) or name">
 						<div class="input-group-btn">
 <!-- 							<button type="button" class="btn btn-default dropdown-toggle"
 								data-toggle="dropdown">

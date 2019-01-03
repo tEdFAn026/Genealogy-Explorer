@@ -222,7 +222,6 @@ public class PersonController {
 		@RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
 		public @ResponseBody Object get(@PathVariable Integer id) {
 			try {
-				System.out.println(ps.findById(id));
 				return ps.findById(id);
 			} catch (PersonSecviceException e) {
 				// TODO: handle exception
@@ -276,6 +275,17 @@ public class PersonController {
 		@RequestMapping(value = "/getAll", method = RequestMethod.POST)
 		public @ResponseBody Object getAll(){
 			return (ps.findAllPerson());
+		}
+		
+		@RequestMapping(value = "/getName/{name}", method = RequestMethod.GET)
+		public @ResponseBody Object get(@PathVariable String name) {
+			try {
+				return new PersonModel(ps.findByNameLike(name));
+			} catch (PersonSecviceException e) {
+				// TODO: handle exception
+				System.out.println(e);
+				return new PersonSecviceMessage(false, e.getPServiceErrorCode().getDesc());
+			}
 		}
 	}
 }

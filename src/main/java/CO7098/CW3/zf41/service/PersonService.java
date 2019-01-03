@@ -87,6 +87,13 @@ public class PersonService {
 		for (Person p : pList) {
 			pr.save(p);
 		}
+	} 
+	
+	public List<Person> findByNameLike(String name){
+		if(name != null)
+			return pr.findByNameLike("%"+name+"%");
+		
+		return null;
 	}
 
 }

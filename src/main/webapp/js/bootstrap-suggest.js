@@ -506,8 +506,11 @@
 					type = '/';
 				} 
 			}
-
-            return options.url + type + encodeURIComponent(keyword);
+			
+			if(ajaxParam.url)
+				return ajaxParam.url + type + encodeURIComponent(keyword);
+			else
+				return options.url + type + encodeURIComponent(keyword);
         }();
 
         return options._preAjax = $.ajax(ajaxParam).done(function(result) {

@@ -22,6 +22,14 @@
 		},
 		url : '/GE/person/get/', /*优先从url ajax 请求 json 帮助数据，注意最后一个参数为关键字请求参数*/
 		//        jsonp: 'callback',               //如果从 url 获取数据，并且需要跨域，则该参数必须设置
+		
+		fnAdjustAjaxParam: function(keyword, options){
+//			console.log(keyword,options);
+			if(!/^[0-9]*$/.test(keyword))
+			return {
+				url:'/GE/person/getName/'
+			};
+		},
 		// url 获取数据时，对数据的处理，作为 fnGetData 的回调函数
 		fnProcessData : function(json) {
 			var index, len, data = {
@@ -39,7 +47,17 @@
 					"gender" : ""
 				});
 			} else if (json.hasOwnProperty("list")) {
-				console.log('data');
+				$.each(json.list, function() {
+					var currTr = this;
+					var g = currTr.gender;
+					if (!g)
+						g = "N/A"
+					data.value.push({
+						"Id" : currTr.key,
+						"Keyword" : currTr.name,
+						"gender" : g
+					});
+				});
 			} else {
 				var g = json.gender;
 				if (!g)
