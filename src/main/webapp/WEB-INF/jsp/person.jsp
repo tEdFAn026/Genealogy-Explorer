@@ -79,11 +79,27 @@
 					</div>
 					<div class="col-md-4">
 						<h5>Descendants</h5>
-						<div id="chart-container-descendants"></div>
+						<div id="chart-container-descendants">
+						
+							<div class="d-flex justify-content-center">
+								<div class="spinner-border" role="status">
+									<span class="sr-only">Loading...</span>
+								</div>
+							</div>
+
+						</div>
 					</div>
 					<div class="col-md-4">
 						<h5>Ancestors</h5>
-						<div id="chart-container-ancestors"></div>
+						<div id="chart-container-ancestors">
+						
+							<div class="d-flex justify-content-center">
+								<div class="spinner-border" role="status">
+									<span class="sr-only">Loading...</span>
+								</div>
+							</div>
+
+						</div>
 					</div>
 				</div>
 			</div>

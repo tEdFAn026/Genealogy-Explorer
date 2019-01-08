@@ -13,6 +13,7 @@
 					      'data' : data,
 					      'nodeContent': 'gender'
 					    });
+					$('#chart-container-descendants').find('.spinner-border').remove();
 				}
 			},
 		});
@@ -28,6 +29,7 @@
 					      'nodeContent': 'gender',
 					      'direction': 'b2t',
 					    });
+				    	$('#chart-container-ancestors').find('.spinner-border').remove();
 				}
 			},
 		});

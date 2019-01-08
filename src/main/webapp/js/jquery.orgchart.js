@@ -212,27 +212,31 @@
       });
     }
     
-/*    $chartContainer.resize(function(){
-//    	$chart.style.zoom= "50%;"
-    	console.log($chart.width(),$chartContainer.width());
-    });*/
+    $chartContainer.resize(function(){
+    	adjustNodeSize($chartContainer);
+    });
+    
 //    console.log($chart.width(),$chartContainer.width());
-    var title = $chartContainer.find(".title");
-    var notfa = title.find('i');
-    var leafNodesCount = title.length - notfa.length;
-    var size = ($chartContainer.width()-40) / leafNodesCount;
-	size = size - 2 * size * 0.02;
-	
-	if(size<130){
-		var css = {
-			"width": size+"px",
-			"padding": size * 0.02+"px"
-		};
-		
-		$chartContainer.find(".node").css(css);
-	}
+    adjustNodeSize($chartContainer);
     return $chartContainer;
   };
+  
+  function adjustNodeSize($chartContainer){
+	    var title = $chartContainer.find(".title");
+	    var notfa = title.find('i');
+	    var leafNodesCount = title.length - notfa.length;
+	    var size = ($chartContainer.width()-40) / leafNodesCount;
+		size = size - 2 * size * 0.02;
+		
+		if(size<130){
+			var css = {
+				"width": size+"px",
+				"padding": size * 0.02+"px"
+			};
+			
+			$chartContainer.find(".node").css(css);
+		}
+  }
 
   function buildJsonDS($li) {
     var subObj = {
@@ -960,7 +964,7 @@
 
 }));
 
-/*(function($, h, c) {
+(function($, h, c) {
 	var a = $([]),
 	e = $.resize = $.extend($.resize, {}),
 	i,
@@ -1034,4 +1038,4 @@
 		e[b]);
 	}
 
-})(jQuery, this);*/
+})(jQuery, this);
