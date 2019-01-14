@@ -1,8 +1,5 @@
 package CO7098.CW3.zf41.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,11 +163,11 @@ public class PersonController {
 		public @ResponseBody Object addJson(@RequestBody Object obj,
 				@RequestParam(value = "update", required = false) boolean update) {
 
-			Map objMap = null;
+			Map<?,?> objMap = null;
 			ObjectMapper mapper = new ObjectMapper();
 			
 			try {
-				objMap = (Map) obj;
+				objMap = (Map<?,?>) obj;
 				if (objMap.containsKey("list")) {			
 					PersonModel pList = mapper.convertValue(obj, PersonModel.class);
 					System.out.println(pList);
