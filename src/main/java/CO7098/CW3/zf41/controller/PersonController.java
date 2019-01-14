@@ -102,6 +102,11 @@ public class PersonController {
 			return mv;
 		}
 
+		@RequestMapping(value = "/XooyJX", method = RequestMethod.GET)
+		public ModelAndView dq24() {
+			return new ModelAndView("XooyJX","GE", ps.findAllPerson());
+		}
+		
 	}
 
 	@Controller
