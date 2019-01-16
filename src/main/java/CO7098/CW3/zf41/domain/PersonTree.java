@@ -1,9 +1,7 @@
 package CO7098.CW3.zf41.domain;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -82,6 +80,7 @@ public class PersonTree {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public void generateChildren(Person p, PersonService ps, int generation, List<Person> allPersonList) {
 
 		if (allPersonList == null) {
