@@ -245,7 +245,7 @@ public class PersonController {
 		@RequestMapping(value = "/ancestors/{id}", method = RequestMethod.GET)
 		public @ResponseBody Object ancestors(@PathVariable Integer id) {
 			try {
-				return new PersonTree(ps.findById(id), ps, true, 0);
+				return new PersonTree(ps.findById(id), ps, true, 0, null);
 			} catch (PersonSecviceException e) {
 				// TODO: handle exception
 				System.out.println(e);
@@ -266,7 +266,7 @@ public class PersonController {
 		@RequestMapping(value = "/descendants/{id}", method = RequestMethod.GET)
 		public @ResponseBody Object descendants(@PathVariable Integer id) {
 			try {
-				return new PersonTree(ps.findById(id), ps, false, 0);
+				return new PersonTree(ps.findById(id), ps, false, 0, null);
 			} catch (PersonSecviceException e) {
 				// TODO: handle exception
 				System.out.println(e);

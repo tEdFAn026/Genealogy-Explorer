@@ -41,7 +41,7 @@ public class PersonService {
 		else if (!pr.existsById(id))
 			throw new PersonSecviceException(PersonServiceErrorCode.ERROR_DELETE_USER_KEY.SetID(id));
 		else {
-			PersonTree pt = new PersonTree(this.findById(id), this, false, 2);
+			PersonTree pt = new PersonTree(this.findById(id), this, false, 2, null);
 			if (pt.getChildren() != null)
 				for (PersonTree child : pt.getChildren()) {
 					Person childPerson = this.findById(child.getKey());
